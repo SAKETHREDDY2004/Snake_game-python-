@@ -3,9 +3,9 @@ import time
 from pygame.locals import *
 import random
 
-size = 40
+size = 40   #initializing required variables
 limit = 0.2
-class Apple():
+class Apple():             #3rd
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
         self.image = pygame.image.load("resources/resources/apple.jpg").convert()
@@ -21,7 +21,7 @@ class Apple():
         self.y = random.randint(1, 18)*size
 
 
-class Snake():
+class Snake():      #2nd
         def __init__(self, parent_screen, length):
             self.parent_screen = parent_screen
             self.image = pygame.image.load("resources/resources/block.jpg").convert()
@@ -63,7 +63,7 @@ class Snake():
                 self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
             pygame.display.flip()
 
-class Game:
+class Game:                 #1 st 
         def __init__(self):
             pygame.init()
             pygame.mixer.init()
@@ -83,13 +83,13 @@ class Game:
                     return True
             return False
 
-        def display_score(self):
+        def display_score(self):       #code for score
             font = pygame.font.SysFont('arial', 30)
             score = font.render(f"Score: {self.snake.length-2}", True, (200, 200, 200))
             self.surface.blit(score, (850, 10))
 
 
-        def run(self):
+        def run(self):            #logic for running background and intializing the roles to keyboard keys
                 limit = 0.2
                 running = True
 
@@ -115,7 +115,7 @@ class Game:
                     self.apple.draw_apple()
                     self.display_score()
                     pygame.display.flip()
-                    if self.collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
+                    if self.collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):     #condition of incresing length if snake ate apples
                         sound = pygame.mixer.Sound("resources/resources/believe_it.mp3")
                         pygame.mixer.Sound.play(sound)
                         limit -= 0.005
@@ -127,7 +127,7 @@ class Game:
 
 
                     for i in range(3, self.snake.length):
-                        if self.collision(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
+                        if self.collision(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):  #condition of exiting if snake collided with his body
                             sound = pygame.mixer.Sound("resources/resources/1_snake_game_resources_crash.mp3")
                             pygame.mixer.Sound.play(sound)
                             print("game over")
@@ -136,10 +136,10 @@ class Game:
                             exit(0)
 
 
-                    time.sleep(limit)
+                    time.sleep(limit)      #here is the time that will increase by keeping eating the apples
 
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':    #program starts here
     game = Game()
     game.run()
